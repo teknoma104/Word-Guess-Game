@@ -134,13 +134,51 @@ function updateDisplay() {
     document.querySelector("#question").innerHTML = sekretz.join(" ");
 }
 
-// Function that displays the alphanumeric letters the players guessed
+// Function that displays the letters the player has guessed
 function updateGuessed() {
     document.querySelector("#guessed").innerHTML = "Letters You Guessed: " + guesses;
 }
 
 function updateStrikes() {
     document.querySelector("#strikes").innerHTML = "Strikes Left: " + strikes;
+}
+
+function resetBoard() {
+    console.log("resetBoard function being called");
+    //resetting strikes back to 10
+    strikes = 10;
+    updateStrikes();
+
+    // resetting guesses array back to empty
+    guesses = [];
+    sekretz = [];
+    
+    updateGuessed();
+
+    updateScore();
+    document.querySelector("#question").innerHTML = "";
+    document.querySelector("#display").innerHTML = "";
+
+}
+
+function continueGame() {
+    var confirmContinue = confirm("Do you want to play again?");
+
+    console.log("confirmCOntinue value is:  " + confirmContinue);
+
+    if (confirmContinue === true)
+    {
+        console.log("entering true condition for continuegame");
+        gameContinue = 'y';
+        resetBoard();
+        renderQuestion();
+    }
+    else
+    {
+        console.log("entering false condition for continuegame");
+        gameContinue = 'n';
+    }
+
 }
 
 
@@ -153,7 +191,7 @@ updateGuessed();
 updateStrikes();
 updateScore();
 
-// When the user presses a key, it will run the following function...
+// When the user presses a key, it will run the following function
 document.onkeyup = function (event) {
 
 
@@ -161,60 +199,68 @@ document.onkeyup = function (event) {
     var userInput = event.key.toLowerCase();
     console.log("You pressed:  " + userInput);
 
+    // Variable used to detect the keycode (number associated with the key you press down)
     var key = event.keyCode;
     console.log("The keycode for " + userInput + " is " + key + ".");
 
     console.log("You have " + strikes + " strikes left.");
 
+    if (gameContinue === 'y') {
+        // conditional to make sure the key you pressed is accepted for guessing (have to be a-z(A-Z))
+        if (key >= 65 && key <= 90) {
+            console.log("Entering conditional for keyboard between 65 and 90");
 
-    if (key >= 65 && key <= 90) {
-        console.log("Entering conditional for keyboard between 65 and 90");
+            if (theChosen.indexOf(userInput) < 0) {
+                console.log("Entering bad guess conditional");
 
-        if (theChosen.indexOf(userInput) < 0) {
-            console.log("Entering bad guess conditional");
-
-            strikes--;
-            guesses.push(userInput);
-            updateStrikes();
-            updateGuessed();
-
-        }
-        else {
-
-            console.log("Entering else conditional correct letter guessed");
-
-
-            for (i = 0; i < theChosen.length; i++) {
-                console.log(theChosen[i]);
-                if (theChosen[i] === userInput) {
-                    console.log("Comparing:");
-                    console.log("theChosen[" + i + "]:  " + theChosen[i]);
-                    console.log("userInput:     " + userInput);
-                    sekretz[i] = userInput;
-
-                    updateDisplay();
-                }
+                strikes--;
+                guesses.push(userInput);
+                updateStrikes();
+                updateGuessed();
 
             }
-            guesses.push(userInput);
-            updateGuessed();
+            else {
 
+                console.log("Entering else conditional correct letter guessed");
+
+
+                for (i = 0; i < theChosen.length; i++) {
+                    console.log(theChosen[i]);
+                    if (theChosen[i] === userInput) {
+                        console.log("Comparing:");
+                        console.log("theChosen[" + i + "]:  " + theChosen[i]);
+                        console.log("userInput:     " + userInput);
+                        sekretz[i] = userInput;
+
+                        updateDisplay();
+                    }
+
+                }
+                guesses.push(userInput);
+                updateGuessed();
+
+            }
         }
-    }
-    else
-        document.querySelector("#display").innerHTML = "Warning! You pressed -" + userInput + "- which is an invalid key";
+        else
+            document.querySelector("#display").innerHTML = "Warning! You pressed '" + userInput + "' which is an invalid key";
 
-    if (strikes === 0) {
-        document.querySelector("#question").innerHTML = "Game Over!";
-        return;
-    }
+        if (strikes === 0) {
+            document.querySelector("#question").innerHTML = "Game Over!";
+            gameContinue = 'n';
+            continueGame();
+            return;
+        }
 
-    if (sekretz.indexOf("_") < 0) {
-        console.log(sekretz.indexOf("_"));
-        score++;
-        updateScore();
-
-        document.querySelector("#display").innerHTML = "Congratulations, you guessed the name!";
+        if (sekretz.indexOf("_") < 0) {
+            console.log(sekretz.indexOf("_"));
+            score++;
+            updateGuessed();
+            updateStrikes();
+            updateScore();
+            document.querySelector("#display").innerHTML = "Congratulations, you guessed the name!";
+            continueGame();
+            return;
+        }
     }
 
 

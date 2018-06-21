@@ -149,10 +149,10 @@ function resetBoard() {
     strikes = 10;
     updateStrikes();
 
-    // resetting guesses array back to empty
+    // resetting guesses and sekretz array back to empty
     guesses = [];
     sekretz = [];
-    
+
     updateGuessed();
 
     updateScore();
@@ -161,8 +161,30 @@ function resetBoard() {
 
 }
 
+function newGame() {
+    var confirmContinue = confirm("Game over! Do you want to play again?");
+
+    console.log("confirmCOntinue value is:  " + confirmContinue);
+
+    if (confirmContinue === true)
+    {
+        console.log("entering true condition for newgame");
+        gameContinue = 'y';
+        score = 0;
+        resetBoard();
+        console.log("score set to:  " + score);
+        renderQuestion();
+    }
+    else
+    {
+        console.log("entering false condition for newgame");
+        gameContinue = 'n';
+    }
+
+}
+
 function continueGame() {
-    var confirmContinue = confirm("Do you want to play again?");
+    var confirmContinue = confirm("Move onto next hero/heroine?");
 
     console.log("confirmCOntinue value is:  " + confirmContinue);
 
@@ -206,10 +228,12 @@ document.onkeyup = function (event) {
     console.log("You have " + strikes + " strikes left.");
 
     if (gameContinue === 'y') {
-        // conditional to make sure the key you pressed is accepted for guessing (have to be a-z(A-Z))
+        // conditional to make sure the key you pressed is accepted for guessing ('a' and 'A' both share the same keycode 65 for example, same with 'z' and 'Z' being keycode 90)
         if (key >= 65 && key <= 90) {
-            console.log("Entering conditional for keyboard between 65 and 90");
+            console.log("Entering conditional for keyboard key between 65 and 90");
 
+            // conditional check that compares the userinput with each letter of theChosen array
+            // if no letter matched, indexOf value will be -1, enters If statement below, takes away 1 from remaining strikes while push your current guessed letter to the guess array for record keeping
             if (theChosen.indexOf(userInput) < 0) {
                 console.log("Entering bad guess conditional");
 
@@ -221,9 +245,11 @@ document.onkeyup = function (event) {
             }
             else {
 
-                console.log("Entering else conditional correct letter guessed");
+                console.log("Entering else conditional, correct letter guessed");
 
-
+                // Loops entire length of chosen name to compare each letter in index
+                // if letter matched, updates the word guessing display to replace the underscore with the correctly guessed letter
+                // also updates letters guessed box with your current guess
                 for (i = 0; i < theChosen.length; i++) {
                     console.log(theChosen[i]);
                     if (theChosen[i] === userInput) {
@@ -243,25 +269,23 @@ document.onkeyup = function (event) {
         }
         else
             document.querySelector("#display").innerHTML = "Warning! You pressed '" + userInput + "' which is an invalid key";
-
-        if (strikes === 0) {
-            document.querySelector("#question").innerHTML = "Game Over!";
-            gameContinue = 'n';
-            continueGame();
-            return;
-        }
-
-        if (sekretz.indexOf("_") < 0) {
-            console.log(sekretz.indexOf("_"));
-            score++;
-            updateGuessed();
-            updateStrikes();
-            updateScore();
-            document.querySelector("#display").innerHTML = "Congratulations, you guessed the name!";
-            continueGame();
-            return;
-        }
     }
 
+    if (strikes === 0) {
+        document.querySelector("#question").innerHTML = "Game Over!";
+        gameContinue = 'n';
+        newGame();
+    }
+    
+    if (sekretz.indexOf("_") < 0) {
+        console.log(sekretz.indexOf("_"));
+        score++;
+        updateGuessed();
+        updateStrikes();
+        updateScore();
+        document.querySelector("#display").innerHTML = "Congratulations, you guessed the name!";
+        continueGame();
+    }
 
 };
+

@@ -70,6 +70,11 @@ var theChosen;
 // Variable used to convert the random hero/heroine name into underscores for text display purposes and also to keep track of the player's guesses
 var sekretz = [];
 
+var answer = [];
+
+var wordGuessBox = document.getElementById("wordguess");
+
+var compareAnswer = "";
 
 
 // FUNCTIONS
@@ -98,15 +103,30 @@ function renderQuestion() {
 
         for (i = 0; i < theChosen.length; i++) {
             console.log(theChosen[i]);
-            if (theChosen[i] === ' ')
-                sekretz.push("&nbsp;");
-            else if (theChosen[i] === '-')
+               
+
+            // converts chosen name to underscore
+            // if it encounters a space in the name, will add the space accordingly
+            // same with a hypen in the name
+            if (theChosen[i] === " ")
+            {
+                sekretz.push("\xa0");
+                answer.push("\xa0");
+            }
+            else if (theChosen[i] === "-")
                 sekretz.push("-");
             else
+            {
                 sekretz.push("_");
+                answer.push(theChosen[i]);
+            }
+                
         }
 
-        document.querySelector("#question").innerHTML = sekretz.join(" ");
+        document.querySelector("#wordguess").innerHTML = sekretz.join(" ");
+        compareAnswer = answer.join(" ");
+
+        console.log("compareAnswer value is:  " + compareAnswer);
 
 
     }
@@ -121,7 +141,12 @@ function updateScore() {
 
 // Function that updates the name being guessed
 function updateDisplay() {
-    document.querySelector("#question").innerHTML = sekretz.join(" ");
+    console.log("Calling updateDisplay() function");
+
+    for (var y = 0; y < sekretz.length; y++)
+      console.log("sekretz[" + y + "] value:  " + sekretz[y]);
+
+    document.querySelector("#wordguess").innerHTML = sekretz.join(" ");
 }
 
 // Function that displays the letters the player has guessed
@@ -142,11 +167,13 @@ function resetBoard() {
     // resetting guesses and sekretz array back to empty
     guesses = [];
     sekretz = [];
+    answer = [];
+    compareAnswer = "";
 
     updateGuessed();
 
     updateScore();
-    document.querySelector("#question").innerHTML = "";
+    document.querySelector("#wordguess").innerHTML = "";
     document.querySelector("#display").innerHTML = "";
 
 }
@@ -156,17 +183,17 @@ function newGame() {
 
     console.log("confirmCOntinue value is:  " + confirmContinue);
 
-    if (confirmContinue === true)
-    {
+    if (confirmContinue === true) {
         console.log("entering true condition for newgame");
         gameContinue = 'y';
         score = 0;
+
         resetBoard();
         console.log("score set to:  " + score);
+        console.log("compareAnswer set to:  " + compareAnswer);
         renderQuestion();
     }
-    else
-    {
+    else {
         console.log("entering false condition for newgame");
         gameContinue = 'n';
     }
@@ -178,19 +205,55 @@ function continueGame() {
 
     console.log("confirmCOntinue value is:  " + confirmContinue);
 
-    if (confirmContinue === true)
-    {
+    if (confirmContinue === true) {
         console.log("entering true condition for continuegame");
         gameContinue = 'y';
         resetBoard();
+        console.log("score set to:  " + score);
+        console.log("compareAnswer set to:  " + compareAnswer);
         renderQuestion();
     }
-    else
-    {
+    else {
         console.log("entering false condition for continuegame");
         gameContinue = 'n';
     }
 
+}
+
+function checkWin() {
+    for (var x = 0; x < wordGuessBox.textContent.length; x++)
+        console.log("Is wordGuessBox.textContent[" + "]: " + wordGuessBox.textContent[x] + " same as compareAnswer[" + x + "]: " + compareAnswer[x] + "  =  " + (wordGuessBox.textContent[x] === compareAnswer[x]));
+
+
+    console.log("Checking Win Condition");
+    console.log("wordGuessBox.textContent value is:  " + wordGuessBox.textContent);
+    console.log("           compareAnswer value is:  " + compareAnswer);
+    console.log(wordGuessBox.textContent === compareAnswer);
+    console.log(wordGuessBox.textContent == compareAnswer);
+
+
+    if (wordGuessBox.textContent === compareAnswer) {
+        console.log("=== conditional");
+        console.log(sekretz.indexOf("_"));
+        score++;
+        updateGuessed();
+        updateStrikes();
+        updateScore();
+        document.querySelector("#display").innerHTML = "Congratulations, you guessed the name!";
+        continueGame();
+    }
+
+    if (wordGuessBox.textContent == compareAnswer) 
+        console.log("== conditional");
+}
+
+function checkLoss() {
+    if (strikes === 0) {
+        updateGuessed();
+        document.querySelector("#display").innerHTML = "Game Over!";
+        gameContinue = 'n';
+        newGame();
+    }
 }
 
 
@@ -202,10 +265,11 @@ renderQuestion();
 updateGuessed();
 updateStrikes();
 updateScore();
+checkWin();
+checkLoss();
 
 // When the user presses a key, it will run the following function
 document.onkeyup = function (event) {
-
 
     // Determine which key was pressed, make it lowercase, and set it to the userInput variable.
     var userInput = event.key.toLowerCase();
@@ -252,8 +316,10 @@ document.onkeyup = function (event) {
                     }
 
                 }
+                updateDisplay();
                 guesses.push(userInput);
                 updateGuessed();
+                checkWin();
 
             }
         }
@@ -261,22 +327,38 @@ document.onkeyup = function (event) {
             document.querySelector("#display").innerHTML = "Warning! You pressed '" + userInput + "' which is an invalid key";
     }
 
-    if (strikes === 0) {
-        updateGuessed();
-        document.querySelector("#question").innerHTML = "Game Over!";
-        gameContinue = 'n';
-        newGame();
-    }
+    // if (strikes === 0) {
+    //     updateGuessed();
+    //     document.querySelector("#wordguess").innerHTML = "Game Over!";
+    //     gameContinue = 'n';
+    //     newGame();
+    // }
+
     
-    if (sekretz.indexOf("_") < 0) {
-        console.log(sekretz.indexOf("_"));
-        score++;
-        updateGuessed();
-        updateStrikes();
-        updateScore();
-        document.querySelector("#display").innerHTML = "Congratulations, you guessed the name!";
-        continueGame();
-    }
+    checkLoss();
+
+
+
+    // if (wordGuessBox.textContent === compareAnswer) {
+    //     score++;
+    //     updateGuessed();
+    //     updateStrikes();
+    //     updateScore();
+    //     document.querySelector("#display").innerHTML = "Congratulations, you guessed the name!";
+    //     continueGame();
+    // }
+
+    // if (sekretz.indexOf("_") < 0) {
+    //     console.log(sekretz.indexOf("_"));
+    //     score++;
+    //     updateGuessed();
+    //     updateStrikes();
+    //     updateScore();
+    //     document.querySelector("#display").innerHTML = "Congratulations, you guessed the name!";
+    //     continueGame();
+    // }
+
+
 
 };
 

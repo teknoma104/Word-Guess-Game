@@ -112,16 +112,6 @@ function renderQuestion() {
     }
 
     console.log("sekretz var:  " + sekretz);
-
-    // // If there are still more questions, render the next one.
-    // if (wordBankIndex <= (guessBank.length - 1)) {
-    //     document.querySelector("#question").innerHTML = guessBank[wordBankIndex].q;
-    // }
-    // // If there aren't, render the end game screen.
-    // else {
-    //     document.querySelector("#question").innerHTML = "Game Over!";
-    //     document.querySelector("#score").innerHTML = "Final Score: " + score + " out of " + guessBank.length;
-    // }
 }
 
 // Function that updates the score
@@ -272,6 +262,7 @@ document.onkeyup = function (event) {
     }
 
     if (strikes === 0) {
+        updateGuessed();
         document.querySelector("#question").innerHTML = "Game Over!";
         gameContinue = 'n';
         newGame();

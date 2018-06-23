@@ -108,7 +108,10 @@ function renderQuestion() {
                 answer.push("\xa0");
             }
             else if (theChosen[i] === "-")
+            {
                 sekretz.push("-");
+                answer.push(theChosen[i]);
+            }
             else
             {
                 sekretz.push("_");

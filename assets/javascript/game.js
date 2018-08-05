@@ -28,13 +28,13 @@ var guessBank = [
     { d: "Scarlet Witch", r: "Wanda Maximoff", h: "Avengers, Everything about her is Chaos!", i: "./assets/images/Scarlet_Witch.jpg" },
     { d: "Black Widow", r: "Natasha Romanoff", h: "Avengers, From Russia With Love ", i: "./assets/images/Black_Widow.png" },
     { d: "Captain Marvel", r: "Carol Danvers", h: "Avengers, Marvelous Female Pilot!", i: "./assets/images/Captain_Marvel.png" },
-    { d: "Falcon", r: "Samuel Wilson" , h: "Avengers, Uses mechanical wings!", i: "./assets/images/Falcon.jpg" },
+    { d: "Falcon", r: "Samuel Wilson", h: "Avengers, Uses mechanical wings!", i: "./assets/images/Falcon.jpg" },
     { d: "Wonder Man", r: "Simon Williams", h: "Avengers, They Call him Mr. Muscles", i: "./assets/images/Wonder_Man.png" },
     { d: "Doctor Strange", r: "Stephen Strange", h: "Marvel, There can be only one Sorceror Supreme!", i: "./assets/images/Doctor_Strange.jpg" },
     { d: "Nova", r: "Richard Ryder", h: "Marvel, Part of a Corps of Cosmic Cops!", i: "./assets/images/Nova.jpg" },
     { d: "Storm", r: "Ororo Munroe", h: "X-Men, She can control the weather!", i: "./assets/images/Storm.png" },
     { d: "Professor X", r: "Charles Xavier", h: "X-Men, One of the Greatest Psychic Minds on the Planet!", i: "./assets/images/Professor_X.png" },
-    { d: "Iceman", r: "Robert Drake", h: "X-Men, He's very cool! (Literally)", i: "./assets/images/Iceman.png" },
+    { d: "Iceman", r: "Robert Drake", h: "X-Men, He's very cool! (Literally)", i: "./assets/images/Iceman.jpg" },
     { d: "Angel", r: "Warren Worthington", h: "X-Men, Looks like he came from Heaven!", i: "./assets/images/Angel.jpg" },
     { d: "Beast", r: "Henry McCoy", h: "X-Men, Blue, furry and smart!", i: "./assets/images/Beast.jpg" },
     { d: "Jean Grey", r: "Jean Grey", h: "X-Men, The Phoenix really likes this girl!", i: "./assets/images/Jean_Grey.png" },
@@ -45,7 +45,7 @@ var guessBank = [
     { d: "Psylocke", r: "Elizabeth Braddock", h: "X-Men, Psychic Ninja!", i: "./assets/images/Psylocke.jpg" },
     { d: "Dazzler", r: "Alison Blaire", h: "X-Men, DAZZLING LIGHTS!", i: "./assets/images/Dazzler.jpg" },
     { d: "Gambit", r: "Remy LeBeau", h: "X-Men, The Ragin' Cajun!", i: "./assets/images/Gambit.jpg" },
-    { d: "Jubilee", r: "Jubilation Lee", h: "X-Men, Mutant who later becomes a vampire!", i: "./assets/images/Jubilee.jpg" },
+    { d: "Jubilee", r: "Jubilation Lee", h: "X-Men, Mutant who later becomes a vampire!", i: "./assets/images/Jubilee.png" },
 ];
 
 // We start the game with a score of 0.
@@ -64,7 +64,10 @@ var gameContinue = 'y';
 var randomIndex;
 
 // Used to store the randomly chosen hero/heroine name
-var theChosen;
+var theChosen = "";
+
+// Used to keep track if the same hero/heroine has been picked again
+var theCurrentChosen = [];
 
 // Variable used to convert the random hero/heroine name into underscores for text display purposes and also to keep track of the player's guesses
 var sekretz = [];
@@ -76,10 +79,6 @@ var answer = [];
 var compareAnswer = "";
 
 var heroImage = $("<img>");
-
-// variable shortcut
-var wordGuessBox = document.getElementById("wordguess");
-
 
 
 
@@ -94,46 +93,78 @@ function renderQuestion() {
     randomIndex = Math.floor(Math.random() * (guessBank.length - 1));
 
     theChosen = guessBank[randomIndex].d;
+
+    // If statement to prevent the same hero/heroine from being chosen again for next round
+    // Condition check to see if the randonmly generated name assigned to theChosen variable is part of of the index of array tracker theCurrentChosen
+    // Value greater than -1 indicates true, meaning value in theChosen is found in the array tracker
+    //
+    // The while loop condition check is the same as the if statement + length of array tracker is not the same length as the word guess back
+    // During the while loop it'll keep reassigning a random number until the chosen hero's name is not in the array tracker
+    if (theCurrentChosen.indexOf(theChosen) > -1) {
+        while ((theCurrentChosen.indexOf(theChosen) > -1) && (theCurrentChosen.length != guessBank.length)) {
+            randomIndex = Math.floor(Math.random() * (guessBank.length - 1));
+            theChosen = guessBank[randomIndex].d;
+        }
+
+        // Condition check if the array tracker gets large enough that its length is the same as the word guess bank, meaning no more new hero names to guess 
+        // In this case the game is forced to end and prompts the user if they want to restart
+        // If user selects yes then array tracker gets wipe clean and rest of the board gets reset, else just updates display thanking the user for playing
+        if (theCurrentChosen.length === guessBank.length) {
+            gameContinue = 'n';
+            $("#display").html("You have guessed all the heroes/heroines in the guess bank!");
+            var confirmContinue = confirm("You have guessed all the heroes/heroines in the guess bank! Restart?");
+            
+            if (confirmContinue === true) {
+                gameContinue = 'y';
+
+                theCurrentChosen = [];
+
+                resetBoard();
+                renderQuestion();
+            }
+            else {
+                $("#display").html("Thanks for playing!");
+            }
+        }
+    }
+
     theChosen = theChosen.toLowerCase();
 
+
     if (gameContinue === 'y') {
-        for (i = 0; i < theChosen.length; i++) {              
+        for (i = 0; i < theChosen.length; i++) {
 
             // converts chosen name to underscore
             // if it encounters a space in the name, will add the space accordingly
             // same with a hypen in the name
-            if (theChosen[i] === " ")
-            {
+            if (theChosen[i] === " ") {
                 sekretz.push("\xa0");
                 answer.push("\xa0");
             }
-            else if (theChosen[i] === "-")
-            {
+            else if (theChosen[i] === "-") {
                 sekretz.push("-");
                 answer.push(theChosen[i]);
             }
-            else
-            {
+            else {
                 sekretz.push("_");
                 answer.push(theChosen[i]);
             }
-                
         }
 
         $("#wordguess").html(sekretz.join(" "));
         compareAnswer = answer.join(" ");
-        $("#hint").html("Here's a hint:  " + guessBank[randomIndex].h);
+        $("#hint").html("<b>Here's a hint:</b>  " + guessBank[randomIndex].h);
     }
 
-    heroImage.attr("src",guessBank[randomIndex].i);
-    heroImage.attr("height","362");
-    heroImage.attr("width","auto");
+    heroImage.attr({ src: guessBank[randomIndex].i, height: "362", width: "auto" });
+
+    theCurrentChosen.push(guessBank[randomIndex].d);
 
 }
 
 // Function that updates the HTML display for the score
 function updateScore() {
-    $("#score").html("Score: " + score);
+    $("#score").html("<b>Score:</b> " + score);
 }
 
 // Function that updates the HTML display for the name being guessed
@@ -144,13 +175,13 @@ function updateDisplay() {
 
 // Function that updates HTML display for the letters the player has guessed
 function updateGuessed() {
-    $("#guessed").html("Letters You Guessed: " + guesses);
+    $("#guessed").html("<b>Letters You Guessed:</b> " + guesses);
 }
 
 
 // Function that updates the HTML display for the strikes left the player has
 function updateStrikes() {
-    $("#strikes").html("Strikes Left: " + strikes);
+    $("#strikes").html("<b>Strikes Left:</b> " + strikes);
 }
 
 
@@ -206,10 +237,9 @@ function continueGame() {
         resetBoard();
         renderQuestion();
     }
-    else
-    {
+    else {
         gameContinue = 'n';
-        $("#display").html("Congratulations, you guessed the name! Thanks for playing!");
+        $("#display").html("Thanks for playing!");
     }
 
 }
@@ -218,14 +248,17 @@ function continueGame() {
 // Function to check the win condition, compares letters on display in HTML with the chosen name for the game round
 // if it matches push congratulations message to HTML, adds a point to score then updates all displays then calls continueGame function
 function checkWin() {
-    if (wordGuessBox.textContent === compareAnswer) {
+    var wordGuessBox = $("#wordguess").text();
+
+    if (wordGuessBox === compareAnswer) {
+
         $("#display").html("Congratulations, you guessed the name!");
         $(".right-side").html(heroImage);
         score++;
         updateGuessed();
         updateStrikes();
         updateScore();
-        setTimeout(continueGame,1000);  // delays continueGame function by 1 sec to allow the HTML page to fully display the updated letters
+        setTimeout(continueGame, 1000);  // delays continueGame function by 1 sec to allow the HTML page to fully display the updated letters
         return;
     }
 }
@@ -238,7 +271,7 @@ function checkLoss() {
         $(".left-side").css("border", "5px solid red");
         $("#display").html("Game Over! The answer was '" + theChosen + "'.");
         gameContinue = 'n';
-        setTimeout(newGame,1000);  // delays checkLoss function by 1 sec to allow the HTML page to fully display the updated letters
+        setTimeout(newGame, 1000);  // delays checkLoss function by 1 sec to allow the HTML page to fully display the updated letters
         return;
     }
 }
@@ -268,33 +301,54 @@ document.onkeyup = function (event) {
     if (gameContinue === 'y') {
         // conditional to make sure the key you pressed is accepted for guessing ('a' and 'A' both share the same keycode 65 for example, same with 'z' and 'Z' being keycode 90)
         if (key >= 65 && key <= 90) {
+
             // conditional check that compares the userinput with each letter of theChosen array
-            // if no letter matched, indexOf value will be -1, it will enter If statement below, takes away 1 from remaining strikes
+            // if no letter matched, indexOf value will be -1, it will enter the If statement below, takes away 1 from remaining strikes
             // while pushing your current guessed letter to the guess array for record keeping and display
             if (theChosen.indexOf(userInput) < 0) {
                 strikes--;
-                guesses.push(userInput);
-                updateStrikes();
+
+                // Checks user's input in the array of guesses box
+                // If the guessed letter is not found in array, pushes the letter into the guesses box and updates info display to let user know they made a wrong guess
+                // Else condition used to catch situation when user attempts to press same letter key already guessed, should not duplicate letter into guesses box repeatedly
+                if (guesses.indexOf(userInput) < 0) {
+                    guesses.push(userInput);
+                    $("#display").html(userInput + " is not found in the word, removed 1 strike from total!");
+                } else {
+                    $("#display").html("Warning! You pressed '" + userInput + "' which you already have guessed before.");
+                }
+
                 updateGuessed();
+                updateStrikes();
             }
             else {
                 // Loops entire length of chosen name to compare each letter in index
-                // if letter matches, updates the word guessing display to replace the underscore with the correctly guessed letter
-                // also updates letters guessed box with your current guess
+                // if guessed letter matches, updates the word guessing display to replace the underscore with the correctly guessed letter
+                // also updates letters guessed box with user's current guess
                 for (i = 0; i < theChosen.length; i++) {
                     if (theChosen[i] === userInput) {
                         sekretz[i] = userInput;
                         updateDisplay();
                     }
                 }
+
+                // Checks user's input in the array of guesses box
+                // If the guessed letter is not found in array, pushes the letter into the guesses box and updates info display to let user know they made a correct letter guess
+                // Else condition used to catch situation when user attempts to press same letter key already guessed, should not duplicate letter into guesses box repeatedly
+                if (guesses.indexOf(userInput) < 0) {
+                    guesses.push(userInput);
+                    $("#display").html("Good job! You guessed a letter correctly!");
+                } else {
+                    $("#display").html("Warning! You pressed '" + userInput + "' which you already have guessed before.");
+                }
+
                 updateDisplay();
-                guesses.push(userInput);
                 updateGuessed();
-                checkWin();   
+                checkWin();
             }
         }
         else
-            $("#display").html("Warning! You pressed '" + userInput + "' which is an invalid key");
+            $("#display").html("Warning! You pressed '" + userInput + "' which is an invalid key.");
     }
 
     checkLoss();

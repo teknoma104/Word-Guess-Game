@@ -6,46 +6,46 @@ var guessBank = [
     { d: "Batman", r: "Bruce Wayne", h: "DC Comic, Na na na na na theme!", i: "./assets/images/Batman.png" },
     { d: "Superman", r: "Clark Kent", h: "DC Comic, Farm boy from Kansas!", i: "./assets/images/Superman.png" },
     { d: "Wonder Woman", r: "Diana Prince", h: "DC Comic, Amazonian warrior!", i: "./assets/images/Wonder_Woman.jpg" },
-    { d: "Aquaman", r: "Arthur Curry", h: "DC Comic, He can talk to fish!", i: "./assets/images/Aquaman.png" },
+    { d: "Aquaman", r: "Arthur Curry", h: "DC Comic, King of Atlantis and also can talk to fish!", i: "./assets/images/Aquaman.png" },
     { d: "The Flash", r: "Barry Allen", h: "DC Comic, Fastest Man Alive!", i: "./assets/images/The_Flash.jpg" },
     { d: "Green Lantern", r: "Hal Jordan", h: "DC Comic, Beware his Light!", i: "./assets/images/Green_Lantern_Hal_Jordan.jpg" },
     { d: "Martian Manhunter", r: "J'onn J'onzz", h: "DC Comic, Alien from Mars!", i: "./assets/images/Martian_Manhunter.png" },
-    { d: "Green Arrow", r: "Oliver Queen", h: "DC Comic, Shoots stuff with a bow!", i: "./assets/images/Green_Arrow.jpg" },
+    { d: "Green Arrow", r: "Oliver Queen", h: "DC Comic, Filthy rich Justice Leaguer who uses bow and arrows!", i: "./assets/images/Green_Arrow.jpg" },
     { d: "Black Canary", r: "Dinah Lance", h: "DC Comic, Heroine with a hell of a voice!", i: "./assets/images/Black_Canary.jpg" },
     { d: "Hawkman", r: "Katar Hol", h: "DC Comic, Has wings and a mace!", i: "./assets/images/Hawkman.jpg" },
     { d: "Zatanna", r: "Zatanna Zatara", h: "DC Comic, She loves Magic!", i: "./assets/images/Zatanna.png" },
-    { d: "Captain America", r: "Steven Rogers", h: "Avengers, The True American  Patriot!", i: "./assets/images/Captain_America.png" },
-    { d: "Spider-Man", r: "Peter Parker", h: "Avengers, Friendly Neighborhood Hero!", i: "./assets/images/Spider-Man.png" },
+    { d: "Captain America", r: "Steven Rogers", h: "Avengers, The True American Patriot!", i: "./assets/images/Captain_America.png" },
+    { d: "Spider-Man", r: "Peter Parker", h: "Avengers, Friendly Neighborhood Spider Hero!", i: "./assets/images/Spider-Man.png" },
     { d: "Wolverine", r: "James Howlett", h: "Avengers/X-Men, He's the best at what does and what he does is not very nice!", i: "./assets/images/Wolverine.png" },
-    { d: "Cyclops", r: "Scott Summers", h: "X-Men, Watch out for his eyes!", i: "./assets/images/Cyclops.png" },
+    { d: "Cyclops", r: "Scott Summers", h: "X-Men, Optic Blast!", i: "./assets/images/Cyclops.png" },
     { d: "Iron Man", r: "Anthony Stark", h: "Avengers, Genius. Billionaire. Playboy. Philanthropist.", i: "./assets/images/Iron_Man.png" },
     { d: "The Hulk", r: "Bruce Banner", h: "Avengers, RAARRGH SMASH!", i: "./assets/images/The_Hulk.png" },
     { d: "Thor", r: "Thor Odinson", h: "Avengers, BY ODIN'S BEARD!", i: "./assets/images/Thor.jpg" },
-    { d: "Ant-Man", r: "Scott Lang", h: "Avengers, So Tiny!", i: "./assets/images/Ant-Man.png" },
-    { d: "Hawkeye", r: "Clinton Barton", h: "Avengers, Never misses his shot! Not bad for a deaf archer.", i: "./assets/images/Hawkeye.jpg" },
+    { d: "Ant-Man", r: "Scott Lang", h: "Avengers, Size-changing hero who is a master thief with a heart of gold!", i: "./assets/images/Ant-Man.png" },
+    { d: "Hawkeye", r: "Clinton Barton", h: "Avengers, Uses bow and arrow with near-perfect precision! Not bad for a deaf archer.", i: "./assets/images/Hawkeye.jpg" },
     { d: "Black Panther", r: "T'Challa", h: "Avengers, WAKANDA FOREVER!", i: "./assets/images/Black_Panther.png" },
     { d: "The Vision", r: "Victor Shade", h: "Avengers, Carries an Infinity Gem on his forehead!", i: "./assets/images/The_Vision.png" },
     { d: "Scarlet Witch", r: "Wanda Maximoff", h: "Avengers, Everything about her is Chaos!", i: "./assets/images/Scarlet_Witch.jpg" },
     { d: "Black Widow", r: "Natasha Romanoff", h: "Avengers, From Russia With Love ", i: "./assets/images/Black_Widow.png" },
-    { d: "Captain Marvel", r: "Carol Danvers", h: "Avengers, Marvelous Female Pilot!", i: "./assets/images/Captain_Marvel.png" },
-    { d: "Falcon", r: "Samuel Wilson", h: "Avengers, Uses mechanical wings!", i: "./assets/images/Falcon.jpg" },
-    { d: "Wonder Man", r: "Simon Williams", h: "Avengers, They Call him Mr. Muscles", i: "./assets/images/Wonder_Man.png" },
+    { d: "Captain Marvel", r: "Carol Danvers", h: "Avengers, a former US Air Force Pilot who is half-human/half-Kree!", i: "./assets/images/Captain_Marvel.png" },
+    { d: "Falcon", r: "Samuel Wilson", h: "Avengers, Uses mechanical wings and has a bird sidekick!", i: "./assets/images/Falcon.jpg" },
+    { d: "Wonder Man", r: "Simon Williams", h: "Avengers, Ionic hero who used to be a stunt man/actor. They call him Mr. Muscles!", i: "./assets/images/Wonder_Man.png" },
     { d: "Doctor Strange", r: "Stephen Strange", h: "Marvel, There can be only one Sorceror Supreme!", i: "./assets/images/Doctor_Strange.jpg" },
     { d: "Nova", r: "Richard Ryder", h: "Marvel, Part of a Corps of Cosmic Cops!", i: "./assets/images/Nova.jpg" },
-    { d: "Storm", r: "Ororo Munroe", h: "X-Men, She can control the weather!", i: "./assets/images/Storm.png" },
+    { d: "Storm", r: "Ororo Munroe", h: "X-Men, Considered a Godddes who can control the weather!", i: "./assets/images/Storm.png" },
     { d: "Professor X", r: "Charles Xavier", h: "X-Men, One of the Greatest Psychic Minds on the Planet!", i: "./assets/images/Professor_X.png" },
     { d: "Iceman", r: "Robert Drake", h: "X-Men, He's very cool! (Literally)", i: "./assets/images/Iceman.jpg" },
     { d: "Angel", r: "Warren Worthington", h: "X-Men, Looks like he came from Heaven!", i: "./assets/images/Angel.jpg" },
     { d: "Beast", r: "Henry McCoy", h: "X-Men, Blue, furry and smart!", i: "./assets/images/Beast.jpg" },
     { d: "Jean Grey", r: "Jean Grey", h: "X-Men, The Phoenix really likes this girl!", i: "./assets/images/Jean_Grey.png" },
-    { d: "Nightcrawler", r: "Kurt Wagner", h: "X-Men, BAMF!", i: "./assets/images/Nightcrawler.png" },
-    { d: "Colossus", r: "Piotr Rasputin", h: "X-Men, OSMIUM SKIN!", i: "./assets/images/Colossus.jpg" },
+    { d: "Nightcrawler", r: "Kurt Wagner", h: "X-Men, Fuzzy blue elf with a teleporting BAMF!", i: "./assets/images/Nightcrawler.png" },
+    { d: "Colossus", r: "Piotr Rasputin", h: "X-Men, OSMIUM METAL SKIN!", i: "./assets/images/Colossus.jpg" },
     { d: "Rogue", r: "Anna Marie", h: "X-Men, She's untouchable!", i: "./assets/images/Rogue.png" },
     { d: "Shadowcat", r: "Katherine Pryde", h: "X-Men, Walls are no problem for this girl!", i: "./assets/images/Shadowcat.png" },
     { d: "Psylocke", r: "Elizabeth Braddock", h: "X-Men, Psychic Ninja!", i: "./assets/images/Psylocke.jpg" },
     { d: "Dazzler", r: "Alison Blaire", h: "X-Men, DAZZLING LIGHTS!", i: "./assets/images/Dazzler.jpg" },
     { d: "Gambit", r: "Remy LeBeau", h: "X-Men, The Ragin' Cajun!", i: "./assets/images/Gambit.jpg" },
-    { d: "Jubilee", r: "Jubilation Lee", h: "X-Men, Mutant who later becomes a vampire!", i: "./assets/images/Jubilee.png" },
+    { d: "Jubilee", r: "Jubilation Lee", h: "X-Men, Mutant who later becomes a vampire!", i: "./assets/images/Jubilee.jpg" },
 ];
 
 // We start the game with a score of 0.
@@ -90,7 +90,7 @@ var heroImage = $("<img>");
 // theChosen is assigned the hero name from the guessbank at the index of the number generated from randomIndex then the word is converted to all lowercase
 function renderQuestion() {
 
-    randomIndex = Math.floor(Math.random() * (guessBank.length - 1));
+    randomIndex = Math.floor(Math.random() * (guessBank.length));
 
     theChosen = guessBank[randomIndex].d;
 
@@ -102,34 +102,34 @@ function renderQuestion() {
     // During the while loop it'll keep reassigning a random number until the chosen hero's name is not in the array tracker
     if (theCurrentChosen.indexOf(theChosen) > -1) {
         while ((theCurrentChosen.indexOf(theChosen) > -1) && (theCurrentChosen.length != guessBank.length)) {
-            randomIndex = Math.floor(Math.random() * (guessBank.length - 1));
+            randomIndex = Math.floor(Math.random() * (guessBank.length));
             theChosen = guessBank[randomIndex].d;
         }
+        
+    }
+    
+    theChosen = theChosen.toLowerCase();
+    
+    // Condition check if the array tracker gets large enough that its length is the same as the word guess bank, meaning no more new hero names to guess 
+    // In this case the game is forced to end and prompts the user if they want to restart
+    // If user selects yes then array tracker gets wipe clean and rest of the board gets reset, else just updates display thanking the user for playing
+    if (theCurrentChosen.length === guessBank.length) {
+        gameContinue = 'n';
+        $("#display").html("You have guessed all the heroes/heroines in the guess bank!");
+        var confirmContinue = confirm("You have guessed all the heroes/heroines in the guess bank! Restart?");
+        
+        if (confirmContinue === true) {
+            gameContinue = 'y';
 
-        // Condition check if the array tracker gets large enough that its length is the same as the word guess bank, meaning no more new hero names to guess 
-        // In this case the game is forced to end and prompts the user if they want to restart
-        // If user selects yes then array tracker gets wipe clean and rest of the board gets reset, else just updates display thanking the user for playing
-        if (theCurrentChosen.length === guessBank.length) {
-            gameContinue = 'n';
-            $("#display").html("You have guessed all the heroes/heroines in the guess bank!");
-            var confirmContinue = confirm("You have guessed all the heroes/heroines in the guess bank! Restart?");
-            
-            if (confirmContinue === true) {
-                gameContinue = 'y';
+            theCurrentChosen = [];
 
-                theCurrentChosen = [];
-
-                resetBoard();
-                renderQuestion();
-            }
-            else {
-                $("#display").html("Thanks for playing!");
-            }
+            resetBoard();
+            renderQuestion();
+        }
+        else {
+            $("#display").html("Thanks for playing!");
         }
     }
-
-    theChosen = theChosen.toLowerCase();
-
 
     if (gameContinue === 'y') {
         for (i = 0; i < theChosen.length; i++) {
@@ -154,12 +154,9 @@ function renderQuestion() {
         $("#wordguess").html(sekretz.join(" "));
         compareAnswer = answer.join(" ");
         $("#hint").html("<b>Here's a hint:</b>  " + guessBank[randomIndex].h);
+        heroImage.attr({ src: guessBank[randomIndex].i, height: "362", width: "auto" });    
+        theCurrentChosen.push(guessBank[randomIndex].d);
     }
-
-    heroImage.attr({ src: guessBank[randomIndex].i, height: "362", width: "auto" });
-
-    theCurrentChosen.push(guessBank[randomIndex].d);
-
 }
 
 // Function that updates the HTML display for the score
@@ -255,6 +252,7 @@ function checkWin() {
         $("#display").html("Congratulations, you guessed the name!");
         $(".right-side").html(heroImage);
         score++;
+        gameContinue = 'n';
         updateGuessed();
         updateStrikes();
         updateScore();
